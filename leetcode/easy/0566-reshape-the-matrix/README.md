@@ -45,12 +45,17 @@ Output: [[1,2],[3,4]]
 ## Solution
 
 **Language:** C  
-**Runtime:** 1 ms (beats 19.46%)  
-**Memory:** 15.9 MB (beats 35.77%)  
-**Submitted:** 2026-11-26T05:11:49.225Z  
+**Runtime:** 0 ms (beats 100.00%)  
+**Memory:** 15.7 MB (beats 87.36%)  
+**Submitted:** 2026-11-23T10:06:46.032Z  
 
 ```c
 
+/**
+ * Return an array of arrays.
+ * The sizes of the returned arrays are returned in *returnColumnSizes*.
+ * The returned array must be malloced, assume caller calls free().
+ */
 int** matrixReshape(int** mat, int matSize, int* matColSize,
                     int r, int c, int* returnSize,
                     int** returnColumnSizes) {
@@ -61,25 +66,29 @@ int** matrixReshape(int** mat, int matSize, int* matColSize,
     // Check whether reshaping is possible
     if (m * n != r * c) {
         *returnSize = m;
-        *returnColumnSizes = matColSize;
+        *returnColumnSizes = (int*)malloc(m * sizeof(int));
+
+        for (int i = 0; i < m; i++) {
+            (*returnColumnSizes)[i] = n;
+        }
+
         return mat;
     }
 
-    // Allocate memory for new matrix
     int** result = (int**)malloc(r * sizeof(int*));
     *returnColumnSizes = (int*)malloc(r * sizeof(int));
-
-    *returnSize = r;
 
     for (int i = 0; i < r; i++) {
         result[i] = (int*)malloc(c * sizeof(int));
         (*returnColumnSizes)[i] = c;
     }
 
-    // Fill the reshaped matrix
+    // Copy elements in row-traversing order
     for (int i = 0; i < m * n; i++) {
         result[i / c][i % c] = mat[i / n][i % n];
     }
+
+    *returnSize = r;
 
     return result;
 }
