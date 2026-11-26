@@ -48,9 +48,9 @@ Output: 4
 ## Solution
 
 **Language:** C  
-**Runtime:** 0 ms (beats 100.00%)  
-**Memory:** 9 MB (beats 13.56%)  
-**Submitted:** 2026-11-23T10:11:14.780Z  
+**Runtime:** 0 ms  
+**Memory:** 8.5 MB  
+**Submitted:** 2026-11-23T10:11:07.281Z  
 
 ```c
 
