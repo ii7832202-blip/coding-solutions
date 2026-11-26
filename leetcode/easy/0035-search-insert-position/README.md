@@ -49,8 +49,8 @@ Output: 4
 
 **Language:** C  
 **Runtime:** 0 ms (beats 100.00%)  
-**Memory:** 8.8 MB (beats 84.09%)  
-**Submitted:** 2026-11-23T10:10:13.235Z  
+**Memory:** 9 MB (beats 13.56%)  
+**Submitted:** 2026-11-23T10:11:14.780Z  
 
 ```c
 
