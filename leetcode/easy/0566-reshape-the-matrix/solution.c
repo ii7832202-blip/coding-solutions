@@ -1,4 +1,9 @@
 
+/**
+ * Return an array of arrays.
+ * The sizes of the returned arrays are returned in *returnColumnSizes*.
+ * The returned array must be malloced, assume caller calls free().
+ */
 int** matrixReshape(int** mat, int matSize, int* matColSize,
                     int r, int c, int* returnSize,
                     int** returnColumnSizes) {
@@ -9,25 +14,29 @@ int** matrixReshape(int** mat, int matSize, int* matColSize,
     // Check whether reshaping is possible
     if (m * n != r * c) {
         *returnSize = m;
-        *returnColumnSizes = matColSize;
+        *returnColumnSizes = (int*)malloc(m * sizeof(int));
+
+        for (int i = 0; i < m; i++) {
+            (*returnColumnSizes)[i] = n;
+        }
+
         return mat;
     }
 
-    // Allocate memory for new matrix
     int** result = (int**)malloc(r * sizeof(int*));
     *returnColumnSizes = (int*)malloc(r * sizeof(int));
-
-    *returnSize = r;
 
     for (int i = 0; i < r; i++) {
         result[i] = (int*)malloc(c * sizeof(int));
         (*returnColumnSizes)[i] = c;
     }
 
-    // Fill the reshaped matrix
+    // Copy elements in row-traversing order
     for (int i = 0; i < m * n; i++) {
         result[i / c][i % c] = mat[i / n][i % n];
     }
+
+    *returnSize = r;
 
     return result;
 }
